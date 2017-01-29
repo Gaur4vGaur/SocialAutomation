@@ -17,6 +17,7 @@ project/plugins/project/
 .worksheet
 
 # user specific
-*.properties
+*application.properties
+.idea/
 *Tweets.scala
 *Rtw.txt
