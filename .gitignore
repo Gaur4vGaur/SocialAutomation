@@ -19,3 +19,4 @@ project/plugins/project/
 # user specific
 .properties
 *Tweets.scala
+Rtw.txt
