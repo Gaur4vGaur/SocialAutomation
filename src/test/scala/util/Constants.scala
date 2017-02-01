@@ -7,17 +7,18 @@ import Properties._
   */
 object Constants {
 
-  val USERNAME = value("USERNAME")
-  val PASSWORDS = value("PASSWORDS")
+  val USERNAME: String = value("USERNAME")
+  val OLD_USERNAME: String = value("OLD_USERNAME")
+  val PASSWORDS: String = value("PASSWORDS")
 
   // Driver
-  val WEBDRIVER = value("WEBDRIVER")
-  val FIREFOX = value("FIREFOX")
+  val WEBDRIVER: String = value("WEBDRIVER")
+  val FIREFOX: String = value("FIREFOX")
 
   // Encryption constants
-  val KEY = value("KEY")
-  val SALT = value("SALT")
+  val KEY: String = value("KEY")
+  val SALT: String = value("SALT")
 
   // URLs
-  val TWITTER_LOGIN = value("TWITTER_LOGIN")
+  val TWITTER_LOGIN: String = value("TWITTER_LOGIN")
 }
