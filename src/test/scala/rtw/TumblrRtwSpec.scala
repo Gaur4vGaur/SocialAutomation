@@ -27,6 +27,9 @@ class TumblrRtwSpec extends FlatSpec with Firefox {
     click on "signup_forms_submit"
 
     go to "https://www.tumblr.com/new/link"
+
+    click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]")
+    pressKeys("www.google.co.uk")
   }
 
 }

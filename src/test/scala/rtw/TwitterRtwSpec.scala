@@ -10,8 +10,8 @@ import ReadingRtwFile._
 class TwitterRtwSpec extends FlatSpec with TwitterTweet {
 
 
-  override val username = decrypt(RTW_USERNAME)
-  override val password = decrypt(RTW_PASSWORD)
+  override val username: String = decrypt(RTW_USERNAME)
+  override val password: String = decrypt(RTW_PASSWORD)
 
   "Twitter Login" should "tweet RTW tweets" in {
 
@@ -21,10 +21,11 @@ class TwitterRtwSpec extends FlatSpec with TwitterTweet {
       tweetMe(tweet)
 
       writeToFile(key+1)
-      close()
+
     }
 
     tweetFlow(tweet)
+    close()
   }
 
 }
