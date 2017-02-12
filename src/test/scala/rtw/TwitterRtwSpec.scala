@@ -17,11 +17,10 @@ class TwitterRtwSpec extends FlatSpec with TwitterTweet {
 
     val tweet = () => {
       val key = fetchKeyFromFile
+      println(key)
       val tweet = rtwTweets.get(key).get
       tweetMe(tweet)
-
       writeToFile(key+1)
-
     }
 
     tweetFlow(tweet)

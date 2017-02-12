@@ -1,7 +1,5 @@
 package traits
 
-import org.scalatest.selenium.WebBrowser.click
-
 /**
   * Created by gaurav on 28/01/17.
   */

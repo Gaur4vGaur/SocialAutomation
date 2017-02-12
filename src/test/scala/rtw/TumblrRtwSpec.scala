@@ -1,35 +1,33 @@
 package rtw
 
 import org.scalatest.FlatSpec
-import org.scalatest.selenium.Firefox
-import _root_.util.Constants._
+import util.RtwConstants._
 import _root_.util.Encryption.decrypt
+import _root_.util.Encryption.encrypt
+import traits.TumblrLogin
 
 /**
   * Created by gaurav on 31/01/17.
   */
-class TumblrRtwSpec extends FlatSpec with Firefox {
+class TumblrRtwSpec extends FlatSpec with TumblrLogin {
 
-  val url = "https://www.tumblr.com/login?from_splash=1"
-  val username = decrypt(OLD_USERNAME)
-  val password = decrypt(PASSWORDS)
+  override val username = decrypt(RTW_TUMBLR_USERNAME)
+  override val password = decrypt(RTW_PASSWORD)
 
   "The testcase" should "able to log in" in {
-    go to url
-    click on "signup_determine_email"
-    enter(username)
-    click on "signup_forms_submit"
-
-    Thread.sleep(5000)
-
-    click on xpath("//*[@id=\"signup_password\"]")
-    enter(password)
-    click on "signup_forms_submit"
+    tumblrLogin()
 
     go to "https://www.tumblr.com/new/link"
 
     click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]")
-    pressKeys("www.google.co.uk")
+    pressKeys("https://www.ticketsroundtheworld.com/trip-planner.php".stripMargin)
+    Thread.sleep(5000)
+    pressKeys("Around the world travel description".stripMargin)
+    click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[3]/div[1]/div/div[1]/div/div/div[1]")
+    pressKeys("Travel, RTW, Around the world travel, ticketsroundtheworld, ticketsroundtheworld.com,")
+    click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[5]/div[1]/div/div[3]/div/div/button")
+    Thread.sleep(5000)
+    close
   }
 
 }

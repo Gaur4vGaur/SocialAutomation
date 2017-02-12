@@ -10,4 +10,6 @@ object RtwConstants {
   val RTW_USERNAME = value("RTW_USERNAME")
   val RTW_PASSWORD = value("RTW_PASSWORD")
 
+  val RTW_TUMBLR_USERNAME = value("RTW_TUMBLR_USERNAME")
+
 }

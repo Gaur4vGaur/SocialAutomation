@@ -1,7 +1,5 @@
 package traits
 
-import java.util.Calendar
-
 import util.Constants._
 import org.scalatest.Matchers
 import org.scalatest.selenium.Firefox

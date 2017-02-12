@@ -21,4 +21,5 @@ object Constants {
 
   // URLs
   val TWITTER_LOGIN: String = value("TWITTER_LOGIN")
+  val TUMBLR_LOGIN: String = value("TUMBLR_LOGIN")
 }
