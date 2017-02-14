@@ -20,4 +20,5 @@ project/plugins/project/
 src/test/resources/application.properties
 .idea/
 *Tweets.scala
+*TumblrPost.scala
 *Rtw.txt
