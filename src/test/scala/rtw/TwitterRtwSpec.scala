@@ -9,7 +9,6 @@ import ReadingRtwFile._
 
 class TwitterRtwSpec extends FlatSpec with TwitterTweet {
 
-
   override val username: String = decrypt(RTW_USERNAME)
   override val password: String = decrypt(RTW_PASSWORD)
 
@@ -18,9 +17,9 @@ class TwitterRtwSpec extends FlatSpec with TwitterTweet {
     val tweet = () => {
       val key = fetchKeyFromFile
       println(key)
-      val tweet = rtwTweets.get(key).get
+      val tweet = rtwTweets(key)
       tweetMe(tweet)
-      writeToFile(key+1)
+      writeToFile(key+1, rtwTweets.size)
     }
 
     tweetFlow(tweet)
@@ -28,13 +27,11 @@ class TwitterRtwSpec extends FlatSpec with TwitterTweet {
   }
 
 }
-
 object ReadingRtwFile {
-
   import _root_.util.Properties._
-  val defaultFileName = value("RTW")
-
   import scala.io.Source
+
+  val defaultFileName = value("RTW")
 
   def fetchKeyFromFile: Int = {
     val source = Source.fromFile(defaultFileName)
@@ -51,10 +48,10 @@ object ReadingRtwFile {
 
   import java.io._
 
-  def writeToFile(data: Int): Unit = {
+  def writeToFile(data: Int, cutOff: Int): Unit = {
     val pw = new PrintWriter(new File(defaultFileName))
     try {
-      pw.write((if (data > rtwTweets.size) 1 else data).toString)
+      pw.write((if (data > cutOff) 1 else data).toString)
     } catch {
       case e: Exception =>
         println("\n\nKey does not exist to fetch the tweet")
