@@ -4,6 +4,7 @@ import org.scalatest.FlatSpec
 import util.RtwConstants._
 import _root_.util.Encryption.decrypt
 import _root_.util.Encryption.encrypt
+import rtw.util.TumblrPost
 import traits.TumblrPoster
 
 /**
@@ -15,9 +16,12 @@ class TumblrRtwSpec extends FlatSpec with TumblrPoster {
   override val password = decrypt(RTW_PASSWORD)
 
   "The testcase" should "able to log in" in {
-    tumblrLogin()
-    postMe()
+    val tumblrPost = () => {
+      val post = TumblrPost.CHOOSE_TRAVEL_ROUTE
+      postLink(post)
+    }
 
+    postOnTumblr(tumblrPost)
     Thread.sleep(5000)
     close
   }
