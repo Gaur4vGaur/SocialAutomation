@@ -6,10 +6,9 @@ import scala.io.Source
 /**
   * The class is supposed maintained the index of messages that should be posted.
   * @param fileName Name of the file maintaining the index
-  * @param data is the index that should be fetched next
   * @param cuttOff is the limit at which index is rolled back to start
   */
-case class ReadingRtwFile(fileName: String, data: Int, cuttOff: Int) {
+case class ReadingRtwFileNew(fileName: String, cuttOff: Int) {
 
   def fetchKeyFromFile: Int = {
     val source = Source.fromFile(fileName)
@@ -24,7 +23,7 @@ case class ReadingRtwFile(fileName: String, data: Int, cuttOff: Int) {
     }
   }
 
-  def writeToFile: Unit = {
+  def writeToFile(data: Int): Unit = {
     val pw = new PrintWriter(new File(fileName))
     try {
       pw.write((if (data > cuttOff) 1 else data).toString)
