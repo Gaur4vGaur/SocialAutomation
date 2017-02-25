@@ -9,7 +9,6 @@ import org.scalatest.selenium.Firefox
   */
 trait TwitterLogin extends Matchers with Firefox {
 
-  System.setProperty(WEBDRIVER, FIREFOX)
   val username: String
   val password: String
 

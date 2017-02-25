@@ -24,24 +24,17 @@ class TumblrRtwSpec extends FlatSpec with TumblrPoster {
       val rtw = ReadingRtwFileNew(fileName, cutOff)
       val key = rtw.fetchKeyFromFile
       println(key)
-      val post = tumblrPost(key)
-      postTextOnTumblr(post, key)
+      //No defensive coding because we are pretty much sure that the map has values.
+      if(tumblrPost(key).contains(WEBSITE))
+        postTextOnTumblr(key)
+      else
+        postOnLinkOnTumblr(key)
+
       rtw.writeToFile(key+1)
     }
 
     post.apply()
     close
   }
-
-  /*"The testcase" should "able to log in" in {
-    val tumblrPost = () => {
-      val post = TumblrPost.CHOOSE_TRAVEL_ROUTE
-      postLink(post)
-    }
-
-    postOnTumblr(tumblrPost)
-    Thread.sleep(5000)
-    close
-  }*/
 
 }

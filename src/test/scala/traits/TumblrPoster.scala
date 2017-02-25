@@ -10,7 +10,9 @@ trait TumblrPoster extends TumblrLogin {
 
   val SPECIAL_KEYSET = List(34,35,36,37)
 
-  def postTextOnTumblr(link: String, key: Int): Unit = {
+  def postTextOnTumblr(key: Int): Unit = {
+
+    val link = tumblrPost(key)
 
     def readRtwSpecialPostSite: Array[String] = {
       go to link
@@ -48,12 +50,12 @@ trait TumblrPoster extends TumblrLogin {
 
     def writeBlog(blog: Array[String]): Unit = {
       var isheadingOn = false
-      for((text,index) <- blog.zipWithIndex if index > 1 && index < 5) {
+      for((text,index) <- blog.zipWithIndex if index > 1) {
         text.length match {
           case 0 =>
-          case heading if heading < 100 =>
-            pressKeys (Keys.chord(Keys.CONTROL, "b"))
+          case heading if heading < 80 =>
             isheadingOn = true
+            pressKeys (Keys.chord(Keys.CONTROL, "b"))
             pressKeys (text)
             pressKeys (Keys.chord(Keys.ENTER))
           case _ =>
@@ -61,15 +63,9 @@ trait TumblrPoster extends TumblrLogin {
             val array = text.split(" ")
             array.foreach(t => pressKeys((t + " ")))
             pressKeys (Keys.chord(Keys.ENTER))
+            isheadingOn = false
         }
       }
-    }
-
-    def postWithHashTags {
-      pressKeys (Keys.chord(Keys.TAB))
-      TUMBLR_HASH_TAGS.split(" ").foreach(pressKeys)
-      pressKeys (Keys.chord(Keys.TAB))
-      pressKeys (Keys.chord(Keys.ENTER))
     }
 
     val content = if(SPECIAL_KEYSET.contains(key)) readRtwSpecialPostSite else readRtwSite
@@ -81,25 +77,32 @@ trait TumblrPoster extends TumblrLogin {
     Thread.sleep(5000)
   }
 
+  def postOnLinkOnTumblr(key: Int): Unit = {
 
+    val link = tumblrPost(key)
+    val description = tumblrPostDescriptions(key)
 
-  def postLink(post: (String, String)): Unit = {
-    val (link, description) = post
-    go to POST_LINK
+    def postLink(): Unit = {
+      go to POST_LINK
 
-    click on xpath ("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]")
-    pressKeys (link)
-    Thread.sleep (6000)
-    pressKeys (description)
+      //click on xpath ("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]")
+      pressKeys (link)
+      Thread.sleep (6000)
+      pressKeys (description)
 
-    click on xpath ("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[3]/div[1]/div/div[1]/div/div/div[1]")
-    pressKeys (TUMBLR_HASH_TAGS)
-    click on xpath ("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[5]/div[1]/div/div[3]/div/div/button")
+      postWithHashTags
+    }
+
+    tumblrLogin()
+    postLink()
+    Thread.sleep(5000)
   }
 
-  def postOnTumblr(post: () => Unit): Unit = {
-    tumblrLogin()
-    post.apply
+  private def postWithHashTags {
+    pressKeys (Keys.chord(Keys.TAB))
+    TUMBLR_HASH_TAGS.split(" ").foreach(pressKeys)
+    pressKeys (Keys.chord(Keys.TAB))
+    pressKeys (Keys.chord(Keys.ENTER))
   }
 
 }
