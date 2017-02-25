@@ -1,5 +1,6 @@
 package traits
 
+import org.openqa.selenium.Keys
 import util.Constants._
 import org.scalatest.Matchers
 import org.scalatest.selenium.Firefox
@@ -13,10 +14,13 @@ trait TwitterLogin extends Matchers with Firefox {
   val password: String
 
   def twitterLogin(): Unit = {
-    go to TWITTER_LOGIN
-    click on xpath("//*[@id=\"page-container\"]/div[2]/div[1]/form/fieldset/div[1]/input")
+    go to "http://www.twitter.com"
+    for(i <- 0 until 3)
+      pressKeys (Keys.chord(Keys.TAB))
+
+    pressKeys (Keys.chord(Keys.ENTER))
     enter(username)
-    click on xpath("//*[@id=\"page-container\"]/div[2]/div[1]/form/fieldset/div[2]/input")
+    pressKeys (Keys.chord(Keys.TAB))
     enter(password)
     submit()
   }
