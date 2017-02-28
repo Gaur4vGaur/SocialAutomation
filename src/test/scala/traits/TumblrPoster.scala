@@ -42,28 +42,28 @@ trait TumblrPoster extends TumblrLogin {
     def enterTitleOfBlog(title: String): Unit = {
       click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div/div[1]")
       pressKeys (title)
-
-      click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[3]/div[1]/div/div[1]")
-      pressKeys ("originally on: www.ticketsroundtheworld.com")
-      pressKeys (Keys.chord(Keys.ENTER))
     }
 
     def writeBlog(blog: Array[String]): Unit = {
-      var isheadingOn = false
+      //click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[3]/div[2]/div/div[2]/div[1]/div/div[3]/div")
+      pressKeys ("originally on: www.ticketsroundtheworld.com")
+      val something: String = Keys.chord(Keys.ENTER)
+      pressKeys (Keys.chord(Keys.ENTER))
+      pressKeys (Keys.chord(Keys.ENTER))
+
       for((text,index) <- blog.zipWithIndex if index > 1) {
         text.length match {
           case 0 =>
           case heading if heading < 80 =>
-            isheadingOn = true
-            pressKeys (Keys.chord(Keys.CONTROL, "b"))
-            pressKeys (text)
+            val markHeading = "**"
+            pressKeys (markHeading + text + markHeading)
+            pressKeys (Keys.chord(Keys.ENTER))
             pressKeys (Keys.chord(Keys.ENTER))
           case _ =>
-            if(isheadingOn) pressKeys (Keys.chord(Keys.CONTROL, "b"))
             val array = text.split(" ")
             array.foreach(t => pressKeys((t + " ")))
             pressKeys (Keys.chord(Keys.ENTER))
-            isheadingOn = false
+            pressKeys (Keys.chord(Keys.ENTER))
         }
       }
     }
@@ -71,8 +71,8 @@ trait TumblrPoster extends TumblrLogin {
     val content = if(SPECIAL_KEYSET.contains(key)) readRtwSpecialPostSite else readRtwSite
     tumblrLogin
     openTextEditor
-    enterTitleOfBlog(content(0))
     writeBlog(content)
+    enterTitleOfBlog(content(0))
     postWithHashTags
     Thread.sleep(5000)
   }
@@ -89,7 +89,7 @@ trait TumblrPoster extends TumblrLogin {
       pressKeys (link)
       Thread.sleep (6000)
       pressKeys (description)
-
+      click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div[1]/section/article")
       postWithHashTags
     }
 
@@ -100,7 +100,7 @@ trait TumblrPoster extends TumblrLogin {
 
   private def postWithHashTags {
     pressKeys (Keys.chord(Keys.TAB))
-    TUMBLR_HASH_TAGS.split(" ").foreach(pressKeys)
+    TUMBLR_HASH_TAGS.split(",").foreach(hash => pressKeys(hash + ","))
     pressKeys (Keys.chord(Keys.TAB))
     pressKeys (Keys.chord(Keys.ENTER))
   }
