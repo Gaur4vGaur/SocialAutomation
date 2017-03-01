@@ -3,61 +3,31 @@ package rtw
 import org.scalatest.FlatSpec
 import traits.TwitterTweet
 import _root_.util.Encryption.decrypt
-import rtw.util.Tweets._
+import rtw.util.Tweets.{rtwTweets, _}
 import util.RtwConstants._
-import ReadingRtwFile._
+import rtw.util.ReadingRtwFileNew
+import _root_.util.Properties
 
 class TwitterRtwSpec extends FlatSpec with TwitterTweet {
 
   override val username: String = decrypt(RTW_USERNAME)
   override val password: String = decrypt(RTW_PASSWORD)
+  private val fileName = Properties.value("RTW")
+  private val cutOff = rtwTweets.size
 
   "Twitter Login" should "tweet RTW tweets" in {
 
     val tweet = () => {
-      val key = fetchKeyFromFile
+      val rtw = ReadingRtwFileNew(fileName, cutOff)
+      val key = rtw.fetchKeyFromFile
       println(key)
       val tweet = rtwTweets(key)
       tweetMe(tweet)
-      writeToFile(key+1, rtwTweets.size)
+      rtw.writeToFile(key+1)
     }
 
     tweetFlow(tweet)
     close()
   }
 
-}
-object ReadingRtwFile {
-  import _root_.util.Properties._
-  import scala.io.Source
-
-  val defaultFileName = value("RTW")
-
-  def fetchKeyFromFile: Int = {
-    val source = Source.fromFile(defaultFileName)
-    try {
-      source.mkString.toInt
-    } catch {
-      case e: Exception =>
-        println("\n\nKey does not exist to fetch the tweet")
-        throw e
-    } finally {
-      source close
-    }
-  }
-
-  import java.io._
-
-  def writeToFile(data: Int, cutOff: Int): Unit = {
-    val pw = new PrintWriter(new File(defaultFileName))
-    try {
-      pw.write((if (data > cutOff) 1 else data).toString)
-    } catch {
-      case e: Exception =>
-        println("\n\nKey does not exist to fetch the tweet")
-        throw e
-    } finally {
-      pw.close
-    }
-  }
 }

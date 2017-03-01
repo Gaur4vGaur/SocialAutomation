@@ -89,7 +89,7 @@ trait TumblrPoster extends TumblrLogin {
       pressKeys (link)
       Thread.sleep (6000)
       pressKeys (description)
-      click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div/div[1]/section/article")
+      click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[2]/div[2]/div[2]/div/div[1]/div[2]/span[2]")
       postWithHashTags
     }
 
