@@ -14,3 +14,5 @@ libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.10" % "test",
   "org.seleniumhq.selenium" % "selenium-java" % "2.53.1" % "test",
   "com.typesafe" % "config" % "1.3.1")
+
+parallelExecution in Test := false
