@@ -58,13 +58,14 @@ trait TumblrPoster extends TumblrLogin {
   def postPhotoOnTumblr(key: Int): Unit = {
 
     val link: String = tumblrPost(key)
+    val picLink: String = tumblrPostPics(key)
 
     def openPhotoEditor {
       go to (PHOTO_LINK)
       Thread.sleep(2000)
 
       click on xpath("//*[@id=\"new_post_buttons\"]/div[4]/div[2]/div/div[2]/div/div[1]/div[2]/div/div/div[2]/div[1]/div/div/div[1]")
-      pressKeys ("https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/17265092_1486544738022551_7887586187099208037_n.jpg?oh=24ed020790f18fdfbf93b020637883af&oe=59615FF0")
+      pressKeys (picLink)
       pressKeys (Keys.chord(Keys.ENTER))
       Thread.sleep(4000)
     }
