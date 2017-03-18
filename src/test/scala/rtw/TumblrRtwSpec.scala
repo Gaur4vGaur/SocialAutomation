@@ -26,7 +26,7 @@ class TumblrRtwSpec extends FlatSpec with TumblrPoster {
       println(key)
       //No defensive coding because we are pretty much sure that the map has values.
       if(tumblrPost(key).contains(WEBSITE))
-        postTextOnTumblr(key)
+        postPhotoOnTumblr(key)
       else
         postOnLinkOnTumblr(key)
 
