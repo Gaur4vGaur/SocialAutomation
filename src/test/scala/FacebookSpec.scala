@@ -6,7 +6,6 @@ import org.scalatest.{FlatSpec, Matchers}
 /**
   * Created by gaurav on 25/01/17.
   */
-/*
 class FacebookSpec extends FlatSpec with Matchers with Firefox {
 
   val username = decrypt(USERNAME)
@@ -36,4 +35,3 @@ class FacebookSpec extends FlatSpec with Matchers with Firefox {
     post.apply
   }
 }
-*/

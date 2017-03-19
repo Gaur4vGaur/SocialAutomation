@@ -8,27 +8,14 @@ import util.RtwConstants._
 import rtw.util.ReadingRtwFileNew
 import _root_.util.Properties
 
-class TwitterRtwSpec extends FlatSpec {
+class TwitterRtwSpec extends FlatSpec with TwitterTweet {
 
-  /*override val username: String = decrypt(RTW_USERNAME)
-  override val password: String = decrypt(RTW_PASSWORD)*/
+  override val username: String = decrypt(RTW_USERNAME)
+  override val password: String = decrypt(RTW_PASSWORD)
   private val fileName = Properties.value("RTW")
   private val cutOff = rtwTweets.size
 
   "Twitter Login" should "tweet RTW tweets" in {
-    rtwTweets.foreach {
-      rtwEntry => {
-        val (k, v) = rtwEntry
-        if(v.contains("www.ticketsroundtheworld.com")) {
-          val split = v.split("https://")
-          println(k + "  -  " + split.last + "\n")
-        }
-
-      }
-    }
-  }
-
-  /*"Twitter Login" should "tweet RTW tweets" in {
 
     val tweet = () => {
       val rtw = ReadingRtwFileNew(fileName, cutOff)
@@ -41,6 +28,6 @@ class TwitterRtwSpec extends FlatSpec {
 
     tweetFlow(tweet)
     close()
-  }*/
+  }
 
 }

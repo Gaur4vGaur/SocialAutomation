@@ -8,7 +8,7 @@ import traits.TwitterTweet
 /**
   * Created by gaurav on 13/01/17.
   */
-/*class TwitterGauravSpec extends FlatSpec with TwitterTweet {
+class TwitterGauravSpec extends FlatSpec with TwitterTweet {
 
   override val username = decrypt(USERNAME)
   override val password = decrypt(PASSWORDS)
@@ -23,4 +23,5 @@ import traits.TwitterTweet
     //tweetFlow(tweet)
   }
 
-}*/
+
+}
