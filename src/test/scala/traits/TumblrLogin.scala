@@ -18,7 +18,7 @@ trait TumblrLogin extends Matchers with Firefox {
     enter(username)
     click on "signup_forms_submit"
 
-    Thread.sleep(5000)
+    Thread.sleep(4000)
 
     click on xpath("//*[@id=\"signup_password\"]")
     enter(password)
