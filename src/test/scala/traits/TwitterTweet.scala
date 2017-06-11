@@ -8,7 +8,7 @@ trait TwitterTweet extends TwitterLogin {
   def tweetMe(tweet: String): Unit = {
     click on "tweet-box-home-timeline"
     pressKeys(tweet)
-    click on xpath("//*[@id=\"timeline\"]/div[2]/div/form/div[2]/div[2]/button")
+    click on xpath("//*[@id=\"timeline\"]/div[2]/div/form/div[3]/div[2]/button")
     Thread.sleep(5000)
   }
 

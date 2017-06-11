@@ -15,7 +15,7 @@ trait TwitterLogin extends Matchers with Firefox {
 
   def twitterLogin(): Unit = {
     go to "http://www.twitter.com"
-    for(i <- 0 until 3)
+    for(i <- 0 until 4)
       pressKeys (Keys.chord(Keys.TAB))
 
     pressKeys (Keys.chord(Keys.ENTER))
